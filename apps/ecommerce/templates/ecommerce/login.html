@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GoodStuffs | Categories</title>
+    <title>GoodStuffs | Login</title>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'ecommerce/css/general.css' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -24,20 +23,32 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
-                    Shopping Cart (0)
+                    Login
+                    <span> | </span>
+                    <a href="/create-acct">Create Account</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <!-- main content -->
+    <div class="container">
         <div class="row">
-            <div class="col-4 categories">
-                <h2>All Categories</h2>
-            </div>
-            <div class="col-8">
-                <h2>Category</h2>
-
+            <div class="col">
+                <!-- Login form -->
+                <form>
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
