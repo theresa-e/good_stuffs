@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+body {
+    background-color: #b7dcb2;
+    font-family: "Inconsolata";
+}
+
+.navbar {
+    height: 10vh;
+    background: #b7dcb2;
+}
+
+.navbar-light .navbar-brand {
+    color: #fff;
+    font-family: "Georgia";
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.nav-item {
+    color: #fff;
+    font-family: "Inconsolata";
+}
+
+.bg {
+    background-image: url('../img/home.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 55%, 0 100%);
+}
+
+.main__title {
+    font-family: "Georgia";
+    font-weight: bold;
+    color: #fff;
+    font-size: 4em;
+}
+
+.main__subtitle {
+    font-family: "Inconsolata";
+    color: #fff;
+}
+
+.main__content {
+    margin-top: 12em;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.main__all-images {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main__img--large {
+    width: 35rem;
+    height: 25rem;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.main__img--small {
+    display: flex;
+    height: 400px;
+
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main__img--small span {
+    display: inline-block;
+    width: 16rem;
+    height: 12rem;
+    margin: 0 5px;
+    background-color: #fff;
+}
+
+.main__blurbs {
+    margin-top: 100px;
+    width: 70%;
+}
+
+.main__blurbs .col-sm {
+    background-color: #fff;
+    height: 300px;
+    border-radius: 15px;
+    margin: 0 10px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}
+
+.btn-primary {
+    background-color: #eee37c;
+    border-color: #eee37c;
+    color: #000000;
+    margin: 30px;
+}
+
+.btn-primary:hover {
+    background-color: #718b6d;
+    border-color: #718b6d;
+}
+
+
+@media only screen and (max-width: 736px) {
+    .main__img--small {
+        flex-direction: column;
+        margin: 5px 0;
+    }
+
+    .main__all-images {
+        flex-direction: column;
+    }
+
+    .main__blurbs .col-sm {
+        margin: 10px 0;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GoodStuffs</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'ecommerce/css/styles.css' %}" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+        <a href="/" class="navbar-brand d-flex w-50 mr-auto">GoodStuffs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <li class="nav-item">
+                    Shopping Cart (0)
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- background -->
+    <section class="bg">
+    </section>
+    <!-- welcome and images -->
+    <section class="main__content text-center">
+        <h1 class="main__title">GoodStuffs</h1>
+        <p class="main__subtitle">Goods for your life.</p>
+        <div class="main__all-images">
+            <div class="main__img--small">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="main__img--small">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="main__img--small">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- blurbs -->
+    <div class="container text-center main__blurbs">
+        <p>Browse and make a purchase today.</p>
+        <div class="row">
+            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
+                tempora quia.</div>
+            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
+                tempora quia.</div>
+            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
+                tempora quia.</div>
+        </div>
+        <a href="categories.html" class="btn btn-primary">View all categories</a>
+    </div>
+</body>
+
+</html>
