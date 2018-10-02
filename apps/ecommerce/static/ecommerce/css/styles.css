@@ -22,16 +22,6 @@ body {
     font-family: "Inconsolata";
 }
 
-.bg {
-    background-image: url('../img/home.jpg');
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    clip-path: polygon(0 0, 100% 0, 100% 55%, 0 100%);
-}
-
 .main__title {
     font-family: "Georgia";
     font-weight: bold;
@@ -96,6 +86,16 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
 }
 
+.bg {
+    background-image: url('../img/home.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 55%, 0 100%);
+}
+
 .btn-primary {
     background-color: #eee37c;
     border-color: #eee37c;
@@ -110,11 +110,6 @@ body {
 
 
 @media only screen and (max-width: 736px) {
-    .main__img--small {
-        flex-direction: column;
-        margin: 5px 0;
-    }
-
     .main__all-images {
         flex-direction: column;
     }
