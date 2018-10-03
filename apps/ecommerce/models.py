@@ -88,15 +88,58 @@ class ErrorManager(models.Manager):
             new_quote = Quote.objects.create(quote=requestPOST['quote'], author=requestPOST['author'], uploaded_by=user)
         return errors
 
-    
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=15)
     user_type = models.IntegerField()
     pw_hash = models.CharField(max_length=200)
+    orders = models.IntegerField(default=0) # orders the customer has placed
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     objects = ErrorManager()
+
     def __repr__(self): 
         return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
+
+class Product(models.Model):
+    name = models.CharField(max_length=10)
+    description = models.CharField(max_length=10)
+    price = models.IntegerField()
+    inventory = models.IntegerField(default=0)
+    quantity_sold = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self): 
+        return "<Product object: {} {} {} {} {}>".format(self.name, self.description, self.price, self.inventory, self.quantiy_sold)
+
+class Images(models.Model):
+    url = models.TextField()
+    product = models.ForeignKey(Product, related_name="product_images")
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    products = models.ForeignKey(Product, related_name="product_category")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Address(models.Model):
+    street = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
+    state = models.CharField(max_length=2)
+    zipcode = models.IntegerField(max_length=5)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Order(models.Model):
+    total = models.IntegerField()
+    buyer = models.ForeignKey(User, related_name="ordered_by")
+    items = models.ManyToManyField(Product, related_name="products_ordered") # list of products ordered
+    ship_to = models.ForeignKey(Address, related_name="shipto_address")
+    bill_to = models.ForeignKey(Address, related_name="billto_address")
+    status = models.CharField(default="In Process") # will change when order ships and is delivered.
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
