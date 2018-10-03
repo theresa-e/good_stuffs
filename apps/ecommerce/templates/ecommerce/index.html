@@ -23,14 +23,21 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
+                    <!-- Check if user is logged in -->
                     {% if not request.session.userid %}
-                    Login
+                    <a href="/login">Login</a>
                     <span> | </span>
                     <a href="/create-acct">Create Account</a>
                     {% else %}
-                    <span>Welcome, {{ request.session.first_name }}!</span>
-                    <span> | </span>
-                    <a href="#">My Account</a>
+                    <!-- Check if user is admin or customer -->
+                    {% if request.session.user_type == 1 %}
+                    <span>Welcome, {{ request.session.first_name }} | </span>
+                    <span><em>Administrator</em></span>
+                    <p><a href="/admin">Admin Dashboard</a></p>
+                    {% else %}
+                    <span>Welcome, {{ request.session.first_name }}</span>
+                    <p><a href="/categories"></a></p>
+                    {% endif %}
                     {% endif %}
                 </li>
             </ul>
@@ -48,6 +55,8 @@
 
     <!-- blurbs -->
     <section class="container text-center main__blurbs">
+        <a href="categories.html" class="btn btn-primary">Browse all categories</a>
+
         <div class="row">
             <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
                 tempora quia.</div>
@@ -56,7 +65,6 @@
             <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
                 tempora quia.</div>
         </div>
-        <a href="categories.html" class="btn btn-primary">Browse all categories</a>
     </section>
 </body>
 

@@ -23,10 +23,21 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
+                    <!-- Check if user is logged in -->
                     {% if not request.session.userid %}
-                    Login
+                    <a href="/login">Login</a>
                     <span> | </span>
                     <a href="/create-acct">Create Account</a>
+                    {% else %}
+                    <!-- Check if user is admin or customer -->
+                    {% if request.session.user_type == 1 %}
+                    <span>Welcome, {{ request.session.first_name }} | </span>
+                    <span><em>Administrator</em></span>
+                    <p><a href="/admin">Admin Dashboard</a></p>
+                    {% else %}
+                    <span>Welcome, {{ request.session.first_name }}</span>
+                    <p><a href="/categories"></a></p>
+                    {% endif %}
                     {% endif %}
                 </li>
             </ul>
@@ -43,17 +54,25 @@
                     <h2>Login</h2>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" name="login_email">
+                        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
+                            name="login_email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="login_password">
+                        <input type="password" class="form-control" placeholder="Password" name="login_password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
+        <h3>Oops!</h3>
+        <p>There was a problem with the form:</p>
+        {% for i in messages %}
+        <ul>
+            <li>{{ i }}</li>
+        </ul>
+        {% endfor %}
+        {% endif %}
         <a href="/categories">Go back</a>
     </div>
 </body>

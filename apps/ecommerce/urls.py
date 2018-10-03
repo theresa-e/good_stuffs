@@ -13,6 +13,12 @@ urlpatterns = [
     # handles form data for new user
     url(r'^process_new_user', views.process_new_user),
     # handles form data for login request
-    url(r'^process_login', views.process_login)
+    url(r'^process_login', views.process_login),
+    url(r'^logout', views.logout),
+    # display account info
+    url(r'^account', views.account_info), 
+    
+    # route to admin dashboard
+    url(r'^admin', views.admin)
 
 ]                            

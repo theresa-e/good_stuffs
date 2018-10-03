@@ -24,10 +24,13 @@
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
                     {% if not request.session.userid %}
-                    Login
+                    <a href="/login">Login</a>
                     <span> | </span>
-                    <a href="/create-acct">Create Account</a>
+                    Create Account
                     {% else %}
+                        {% if request.session.user_type == 1 %}
+                        <p>Welcome Admin!</p>
+                        {% endif %}
                     <p><a href="/categories">Categories</a></p>
                     {% endif %}
                 </li>
@@ -44,37 +47,37 @@
                 <!-- New account form -->
                 <form action="/process_new_user" method="POST">
                     {% csrf_token %}
+
                     <h2>Create new account</h2>
                     <div class="form-group">
                         <label for="exampleInputEmail1">First Name</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="First name" name="first_name">
+                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="First name"
+                            name="first_name">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Last Name</label>
-                        <input type="text" class="form-control" id=Last"exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Last name" name="last_name">
+                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Last name"
+                            name="last_name">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="text" class="form-control" id=Last"exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" name="email">
+                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
+                            name="email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                            name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                            name="confirm_password">
+                        <input type="password" class="form-control" " placeholder=" Password" name="confirm_password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 {% if messages %}
                 <h3>Oops!</h3>
                 <p>There was a problem with the form:</p>
+
                 {% for i in messages %}
                 <ul>
                     <li>{{ i }}</li>

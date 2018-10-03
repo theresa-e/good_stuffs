@@ -42,6 +42,9 @@ def process_login(request):
         if 'userid' not in request.session:
             request.session['userid'] = user.id
         request.session['userid'] = user.id
+        if 'user_type' not in request.session:
+            request.session['user_type'] = user.user_type
+        request.session['user_type'] = user.user_type        
         return redirect('/categories')
 def process_new_user(request):
     print('-'*30+'> ' 'The registration form was submitted.')
@@ -54,7 +57,6 @@ def process_new_user(request):
         print('-'*30+'> ', 'Errors: ', errors)
         return redirect('/create-acct')
     else:
-        user = User.objects.get(email=request.POST['email'])
         # Save user info to form input
         if 'first_name' not in request.session:
             request.session['first_name'] = request.POST['first_name']  
@@ -65,15 +67,30 @@ def process_new_user(request):
         if 'email' not in request.session:
             request.session['email'] = request.POST['email']
         request.session['email'] = request.POST['email']
-        if 'welcome_msg' not in request.session:
-            request.session['welcome_msg'] = 'You\'re now a registered user.'
-        request.session['welcome_msg'] = 'You\'re now a registered user.'
+        User.objects.create_user(request.POST)
+
+        # Save new user ID in session
+        user = User.objects.get(email=request.POST['email'])
         if 'userid' not in request.session:
             request.session['userid'] = user.id
         print('-'*30+'> ', 'A new user was created!')
         print('-'*30+'> ', 'Current users:\n', User.objects.all())
-        return redirect('/create-acct')
+        return redirect('/')
 
 def create_acct(request):
     print('User navigated to the login page.')
     return render(request, 'ecommerce/create-acct.html')
+
+def account_info(request):
+    context = {
+        'user' : User.objects.get(id=request.session['userid'])
+    }
+    return render(request, '/acct-info')
+
+def admin(request):
+    print('Admin is visiting dashboard')
+    return render(request, 'ecommerce/admin.html')
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')

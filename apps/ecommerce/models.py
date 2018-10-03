@@ -7,6 +7,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class ErrorManager(models.Manager):
     def basic_validator(self, requestPOST):
         errors = {}
+        # Check if the username is already in our db.
         user_list = User.objects.filter(email=requestPOST['email'])
         if len(requestPOST['first_name']) < 2:
             errors['first_name'] = "First name should be at least 2 characters long."
@@ -22,14 +23,12 @@ class ErrorManager(models.Manager):
             errors['password_match'] = "Please confirm password before registering, they do not match."
         if len(user_list) > 0:
             errors['existing_user'] = "That email is already associated with an account."
-        # if we pass all the validations, we'll create a new user. 
-        User.objects.create_user(requestPOST)
         return errors
 
     def create_user(self, requestPOST):
         all_users = User.objects.all()
         # Determine what user_type 
-        if len(all_users) > 1:
+        if len(all_users) > 0:
             user_type = 0
         else:
             user_type = 1
@@ -40,13 +39,14 @@ class ErrorManager(models.Manager):
     def login_validator(self, requestPOST):
         errors = {}
         user_list = User.objects.filter(email=requestPOST['login_email'])
-        if not EMAIL_REGEX.match(requestPOST['login_email']):
-            errors['login_format'] = "Please enter a valid email."
+        print('USER LIST:', user_list)
         if len(requestPOST['login_email']) < 1:
             errors['login_email'] = "Login email cannot be blank."
-        if len(user_list) < 1:
-            errors['email_error'] = "This email is not associated with an account."
-        if len(user_list) > 0:
+        if not EMAIL_REGEX.match(requestPOST['login_email']):
+            errors['login_format'] = "Please enter a valid email."
+        if not len(user_list):
+            errors['email_error'] = "This email is not valid."
+        elif len(user_list) > 0:
             user = User.objects.get(email=requestPOST['login_email'])
             hash1 = bcrypt.hashpw('test'.encode(), bcrypt.gensalt())
             if not bcrypt.checkpw(requestPOST['login_password'].encode(), user.pw_hash.encode()):
