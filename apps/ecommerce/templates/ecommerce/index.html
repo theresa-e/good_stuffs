@@ -31,9 +31,17 @@
                     {% else %}
                     <!-- Check if user is admin or customer -->
                     {% if request.session.user_type == 1 %}
-                    <span>Welcome, {{ request.session.first_name }} | </span>
-                    <span><em>Administrator</em></span>
-                    <p><a href="/admin">Admin Dashboard</a></p>
+                    <span>Welcome back, {{ request.session.first_name }}!</span>
+                    <p>Admin Priviledges:
+                        <br />
+                        <a href="/admin/orders">Orders</a>
+                        <span> | </span>
+                        <a href="/admin/products">Products</a>
+                        <span> | </span>
+                        <a href="/admin/customers">Customer List</a>
+                        <span> | </span>
+                        <a href="/logout">Logout</a>
+                    </p>
                     {% else %}
                     <span>Welcome, {{ request.session.first_name }}</span>
                     <p><a href="/categories"></a></p>
@@ -43,7 +51,6 @@
             </ul>
         </div>
     </nav>
-
     <!-- background -->
     <section class="bg">
     </section>

@@ -109,27 +109,22 @@ class Product(models.Model):
     price = models.IntegerField()
     inventory = models.IntegerField(default=0)
     quantity_sold = models.IntegerField(default=0)
+    category = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self): 
-        return "<Product object: {} {} {} {} {}>".format(self.name, self.description, self.price, self.inventory, self.quantiy_sold)
+        return "<Product object: {} {} {} {} {}>".format(self.name, self.description, self.price, self.inventory, self.quantity_sold)
 
 class Images(models.Model):
     url = models.TextField()
     product = models.ForeignKey(Product, related_name="product_images")
-
-class Category(models.Model):
-    name = models.CharField(max_length=30)
-    products = models.ForeignKey(Product, related_name="product_category")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Address(models.Model):
     street = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=2)
-    zipcode = models.IntegerField(max_length=5)
+    zipcode = models.CharField(max_length=5)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -139,7 +134,7 @@ class Order(models.Model):
     items = models.ManyToManyField(Product, related_name="products_ordered") # list of products ordered
     ship_to = models.ForeignKey(Address, related_name="shipto_address")
     bill_to = models.ForeignKey(Address, related_name="billto_address")
-    status = models.CharField(default="In Process") # will change when order ships and is delivered.
+    status = models.CharField(max_length=10) # will change when order ships and is delivered.
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

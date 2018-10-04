@@ -87,9 +87,20 @@ def account_info(request):
     }
     return render(request, '/acct-info')
 
-def admin(request):
-    print('Admin is visiting dashboard')
-    return render(request, 'ecommerce/admin.html')
+def orders(request):
+    print('Admin is viewing all orders.')
+    return render(request, 'ecommerce/orders.html')
+
+def products(request):
+    print('Admin is viewing all products.')
+    context = {
+        'all_products' : Product.objects.all()
+    }
+    return render(request, 'ecommerce/products.html', context)
+
+def customers(request):
+    print('Admin is viewing all customers.')
+    return render(request, 'ecommerce/customers.html')
 
 def logout(request):
     request.session.flush()

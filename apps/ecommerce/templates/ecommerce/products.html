@@ -10,7 +10,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'ecommerce/css/general.css' %}" />
-    <script src="main.js"></script>
+    <script src="{% static 'ecommerce/scripts/product.js' %}"></script>
+
 </head>
 
 <body>
@@ -36,7 +37,7 @@
                         <br />
                         <a href="/admin/orders">Orders</a>
                         <span> | </span>
-                        <a href="/admin/products">Products</a>
+                        <span>Products</span>
                         <span> | </span>
                         <a href="/admin/customers">Customer List</a>
                         <span> | </span>
@@ -54,53 +55,67 @@
 
     <!-- main content -->
     <div class="container">
-        <div class="row">
-
-            <div class="col">
-                <!-- New account form -->
-                <form action="/process_new_user" method="POST">
-                    {% csrf_token %}
-
-                    <h2>Create new account</h2>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">First Name</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="First name"
-                            name="first_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Last Name</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Last name"
-                            name="last_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
-                            name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" " placeholder=" Password" name="confirm_password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                {% if messages %}
-                <h3>Oops!</h3>
-                <p>There was a problem with the form:</p>
-
-                {% for i in messages %}
-                <ul>
-                    <li>{{ i }}</li>
-                </ul>
+        <div class="d-flex justify-content-between">
+            <h1 class="text-center">All Products</h1>
+            <button href="#" class="btn btn-secondary">Add new product</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Inventory</th>
+                    <th>Quantity Sold</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in all_products %}
+                <tr>
+                    <th>{{ product.id }}</th>
+                    <th>{{ product.name }}</th>
+                    <th>{{ product.description }}</th>
+                    <th>{{ product.inventory }}</th>
+                    <th>{{ product.quantity_sold }}</th>
+                    <th>{{ product.category }}</th>
+                    <th>
+                        <button class="btn btn-primary btn-xs">Edit</button>
+                        <button class="btn btn-primary btn-xs">Delete</button>
+                    </th>
+                </tr>
                 {% endfor %}
-                {% endif %}
-                <a href="/categories">Go back</a>
+            </tbody>
+        </table>
+
+
+    </div>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
+
         </div>
     </div>
 </body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </html>

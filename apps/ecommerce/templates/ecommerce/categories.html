@@ -24,16 +24,27 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li class="nav-item">
+                    <!-- Check if user is logged in -->
                     {% if not request.session.userid %}
                     <a href="/login">Login</a>
                     <span> | </span>
                     <a href="/create-acct">Create Account</a>
                     {% else %}
-                    <span>Welcome, {{ request.session.first_name }}!</span>
-                    <span> | </span>
-                    <a href="#">My Account</a>
-                    <span> | </span>
-                    <a href="/logout">Logout</a>
+                    <!-- Check if user is admin or customer -->
+                    {% if request.session.user_type == 1 %}
+                    <span>Welcome back, {{ request.session.first_name }}!</span>
+                    <p>Admin Priviledges:
+                    <br/>
+                        <a href="/admin/orders">Orders</a>
+                        <span> | </span>
+                        <a href="">Products</a>
+                        <span> | </span>
+                        <a href="">Customer List</a>
+                    </p>
+                    {% else %}
+                    <span>Welcome, {{ request.session.first_name }}</span>
+                    <p><a href="/categories"></a></p>
+                    {% endif %}
                     {% endif %}
                 </li>
             </ul>

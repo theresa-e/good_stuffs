@@ -19,6 +19,9 @@ urlpatterns = [
     url(r'^account', views.account_info), 
     
     # route to admin dashboard
-    url(r'^admin', views.admin)
+    url(r'^admin/orders', views.orders),
+    url(r'^admin/products', views.products),
+    url(r'^admin/customers', views.customers)
+
 
 ]                            
