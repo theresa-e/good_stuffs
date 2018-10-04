@@ -21,7 +21,7 @@ urlpatterns = [
     # route to admin dashboard
     url(r'^admin/orders', views.orders),
     url(r'^admin/products', views.products),
-    url(r'^admin/customers', views.customers)
+    url(r'^admin/customers', views.customers),
+    url(r'^admin/add-product', views.add_product)
 
-
-]                            
+]

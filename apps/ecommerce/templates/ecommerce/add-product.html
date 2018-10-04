@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GoodStuffs</title>
+    <title>GoodStuffs | Login</title>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'ecommerce/css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'ecommerce/css/general.css' %}" />
     <script src="main.js"></script>
 </head>
 
@@ -34,7 +34,7 @@
                     <span>Welcome back, {{ request.session.first_name }}!</span>
                     <p>Admin Priviledges:
                         <br />
-                        <a href="/admin/orders">Orders</a>
+                        <a href="/admin/Orders">Orders</a>
                         <span> | </span>
                         <a href="/admin/products">Products</a>
                         <span> | </span>
@@ -43,40 +43,22 @@
                         <a href="/logout">Logout</a>
                     </p>
                     {% else %}
-                    <span>Welcome, {{ request.session.first_name }}!</span>
-                    <p><a href="/logout">Logout</a>
-                    <span> | </span>
-                    <a href="#">My Account</a>
-                    <br/>
-                        <a href="/categories">View Products</a>
+                    <span>Welcome, {{ request.session.first_name }}</span>
+                    <p><a href="/categories"></a></p>
                     {% endif %}
                     {% endif %}
                 </li>
             </ul>
         </div>
     </nav>
-    <!-- background -->
-    <section class="bg">
-    </section>
-    <!-- welcome and images -->
-    <section class="main__content text-center">
-        <h1 class="main__title">GoodStuffs</h1>
-        <p class="main__subtitle">Goods for your life.</p>
-    </section>
 
-    <!-- blurbs -->
-    <section class="container text-center main__blurbs">
-        <a href="categories.html" class="btn btn-primary">Browse all categories</a>
-
+    <!-- main content -->
+    <div class="container">
         <div class="row">
-            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
-                tempora quia.</div>
-            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
-                tempora quia.</div>
-            <div class="col-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatibus odio libero
-                tempora quia.</div>
+            <h1>Add new product</h1>
         </div>
-    </section>
+
+    </div>
 </body>
 
 </html>

@@ -67,6 +67,11 @@ def process_new_user(request):
         if 'email' not in request.session:
             request.session['email'] = request.POST['email']
         request.session['email'] = request.POST['email']
+        if 'user_type' not in request.session:
+            request.session['user_type'] = user.user_type
+        request.session['user_type'] = user.user_type
+        print('REQUEST.SESSION: ', request.session)
+        # Create the new user!
         User.objects.create_user(request.POST)
 
         # Save new user ID in session
@@ -89,18 +94,37 @@ def account_info(request):
 
 def orders(request):
     print('Admin is viewing all orders.')
+    if request.session['user_type'] != 1:
+        print('User without admin access tried to visit /products.')
+        return redirect('/')
     return render(request, 'ecommerce/orders.html')
 
 def products(request):
     print('Admin is viewing all products.')
+    print('@@@@@@ REQUEST.SESSION', request.session)
+    if request.session['user_type'] != 1:
+        print('User without admin access tried to visit /products.')
+        return redirect('/')
     context = {
         'all_products' : Product.objects.all()
     }
     return render(request, 'ecommerce/products.html', context)
 
+def add_product(request):
+    print('Admin is adding a product.')
+    if request.session['user_type'] != 1:
+        print('User without admin access tried to visit /products.')
+        return redirect('/')
+    else:
+        return render(request, 'ecommerce/add-product.html')
+
 def customers(request):
     print('Admin is viewing all customers.')
+    if not request.session['user_type'] == 1:
+        print('User without admin access tried to visit /products.')
+        return redirect('/')
     return render(request, 'ecommerce/customers.html')
+
 
 def logout(request):
     request.session.flush()
