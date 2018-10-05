@@ -22,6 +22,10 @@ urlpatterns = [
     url(r'^admin/orders', views.orders),
     url(r'^admin/products', views.products),
     url(r'^admin/customers', views.customers),
-    url(r'^admin/add-product', views.add_product)
+    url(r'^admin/add-product', views.add_product),
+    url(r'^admin/process-product', views.process_product),
+    url(r'^admin/product/delete/(?P<id>\d+)', views.delete_product),
+    url(r'^admin/product/edit/(?P<id>\d+)', views.process_edit),
+    url(r'^admin/product/edit-product/(?P<id>\d+)', views.edit_product)
 
 ]

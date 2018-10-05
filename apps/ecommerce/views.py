@@ -118,6 +118,36 @@ def add_product(request):
     else:
         return render(request, 'ecommerce/add-product.html')
 
+def process_product(request):
+    print('Admin is creating a new product.')
+    errors = Product.objects.product_validator(request.POST)
+    if len(errors):
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/admin/add-product')
+    else:
+        return redirect('/admin/products')
+
+def delete_product(request, id):
+    product = Product.objects.filter(id=id).first()
+    product.delete()
+    return redirect('/admin/products')
+
+def edit_product(request, id):
+    context = {
+        'edit_product' : Product.objects.filter(id=id).first()
+    }
+    return render(request, 'ecommerce/edit-product.html', context)
+
+def process_edit(request, id):
+    product = Product.objects.filter(id=id).first()
+    product.name = request.POST['name']
+    product.description = request.POST['description']
+    product.price = request.POST['price']
+    product.cateogry = request.POST['category']
+    product.save()
+    return redirect('/admin/products')
+
 def customers(request):
     print('Admin is viewing all customers.')
     if not request.session['user_type'] == 1:

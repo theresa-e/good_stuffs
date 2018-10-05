@@ -54,22 +54,23 @@
 
     <!-- main content -->
     <div class="container">
-        <h1>Add new product</h1>
-        <form action="/admin/process-product" method="POST">
+        <h2>Edit Product Details: {{ edit_product.name }}</h2>
+        <form action="/admin/product/edit/{{edit_product.id}}" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Display name of product"
-                    name="name">
+                    name="name" value={{ edit_product.name }}>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
                 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Product description"
-                    name="description">
+                    name="description" value={{ edit_product.description }}>
             </div>
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Ex. $19.99" name="price">
+                <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Ex. $19.99" name="price"
+                    value={{ edit_product.price }}>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
@@ -84,7 +85,7 @@
                     <option value="Books">Books</option>
                 </select>
             </div>
-            <input type="submit" value="Add Product" class="btn btn-primary">
+            <input type="submit" value="Edit Product" class="btn btn-primary">
         </form>
         {% if messages %}
         <h3>Oops!</h3>

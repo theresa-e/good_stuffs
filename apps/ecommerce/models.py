@@ -88,6 +88,19 @@ class ErrorManager(models.Manager):
             new_quote = Quote.objects.create(quote=requestPOST['quote'], author=requestPOST['author'], uploaded_by=user)
         return errors
 
+    def product_validator(self, requestPOST):
+        errors = {}
+        if len(requestPOST['name']) < 1:
+            errors['name_len'] = "Product must have a name."
+        if len(requestPOST['description']) < 1:
+            errors['description'] = "Product must have a description."
+        if len(requestPOST['price']) < 1:
+            errors['price'] = "Product must have a price."
+        if not len(errors):
+            new_product = Product.objects.create(name = requestPOST['name'], description = requestPOST['description'], price = requestPOST['price'], category = requestPOST['category'])
+            new_product.save()
+        return errors
+
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -106,12 +119,13 @@ class User(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=10)
     description = models.CharField(max_length=10)
-    price = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=10)
     inventory = models.IntegerField(default=0)
     quantity_sold = models.IntegerField(default=0)
     category = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = ErrorManager()
     def __repr__(self): 
         return "<Product object: {} {} {} {} {}>".format(self.name, self.description, self.price, self.inventory, self.quantity_sold)
 

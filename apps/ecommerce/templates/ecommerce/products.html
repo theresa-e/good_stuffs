@@ -70,6 +70,7 @@
                     <th>Description</th>
                     <th>Inventory</th>
                     <th>Quantity Sold</th>
+                    <th>Price</th>
                     <th>Category</th>
                     <th>Action</th>
                 </tr>
@@ -82,10 +83,15 @@
                     <th>{{ product.description }}</th>
                     <th>{{ product.inventory }}</th>
                     <th>{{ product.quantity_sold }}</th>
+                    <th>${{ product.price }}</th>
                     <th>{{ product.category }}</th>
                     <th>
-                        <button class="btn btn-primary btn-xs">Edit</button>
-                        <button class="btn btn-primary btn-xs">Delete</button>
+                        <a href="/admin/product/edit-product/{{ product.id }}">
+                            <button class="btn btn-primary btn-xs">Edit</button>
+                        </a>
+                        <a href="/admin/product/delete/{{ product.id }}">
+                            <button class="btn btn-primary btn-xs">Delete</button>
+                        </a>
                     </th>
                 </tr>
                 {% endfor %}
