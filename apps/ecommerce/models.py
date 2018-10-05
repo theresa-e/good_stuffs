@@ -101,21 +101,6 @@ class ErrorManager(models.Manager):
             new_product.save()
         return errors
 
-class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=15)
-    user_type = models.IntegerField()
-    pw_hash = models.CharField(max_length=200)
-    orders = models.IntegerField(default=0) # orders the customer has placed
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    objects = ErrorManager()
-
-    def __repr__(self): 
-        return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
-
 class Product(models.Model):
     name = models.CharField(max_length=10)
     description = models.CharField(max_length=10)
@@ -125,9 +110,28 @@ class Product(models.Model):
     category = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     objects = ErrorManager()
+
     def __repr__(self): 
         return "<Product object: {} {} {} {} {}>".format(self.name, self.description, self.price, self.inventory, self.quantity_sold)
+
+class User(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.CharField(max_length=15)
+    user_type = models.IntegerField()
+    pw_hash = models.CharField(max_length=200)
+    orders = models.IntegerField(default=0) # orders the customer has placed
+    cart = models.ManyToManyField(Product, related_name="products_in_cart") # current items in customer's cart
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = ErrorManager()
+
+    def __repr__(self): 
+        return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
+
 
 class Images(models.Model):
     url = models.TextField()
@@ -151,4 +155,3 @@ class Order(models.Model):
     status = models.CharField(max_length=10) # will change when order ships and is delivered.
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
