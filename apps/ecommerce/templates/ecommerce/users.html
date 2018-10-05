@@ -84,7 +84,7 @@
                     <th>Customer</th>
                     {% endif %}
                     <th>
-                        <form action="admin/user/edit-user/{{ user.id }}" method="POST">
+                        <form action="/admin/user/edit-user/{{ user.id }}" method="POST">
                             {% csrf_token %}
                             <select name="account-level" id="">
                                 <option value="1">Admin</option>

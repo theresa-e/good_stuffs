@@ -39,22 +39,50 @@
                         <a href="/admin/products">Products</a>
                         <span> | </span>
                         <a href="/admin/users">All Accounts</a>
+                        <span> | </span>
+                        <a href="/logout">Logout</a>
                     </p>
                     {% else %}
-                    <span>Welcome, {{ request.session.first_name }}</span>
-                    <p><a href="/categories"></a></p>
-                    {% endif %}
-                    {% endif %}
+                    <span>Welcome, {{ request.session.first_name }}!</span>
+                    <p><a href="/logout">Logout</a>
+                        <span> | </span>
+                        <a href="/account/{{ request.session.userid }}">My Account</a>
+                        <br />
+                        <a href="/categories">View Products</a>
+                        {% endif %}
+                        {% endif %}
                 </li>
             </ul>
         </div>
     </nav>
+    </ul>
+    </div>
+    </nav>
 
     <!-- main content -->
-    <div class="container">
-        user -> {{ user }}
+    <section class="container">
+        <h1>
+            Hey, {{ user.first_name }}! Welcome to your dashboard.
+        </h1>
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Account Info
+                </h2>
+                <ul>
+                    <li><span>Full Name:</span> {{ user.first_name }} {{ user.last_name }}</li>
+                    <li><span>Email:</span> {{ user.email }}</li>
+                </ul>
+                <a href="#">
+                    <button class="btn btn-primary">Edit Account</button>
+                </a>
+            </div>
+            <div class="col">
+                <h2>Orders</h2>
+            </div>
+        </div>
         <a href="/categories">Go back</a>
-    </div>
+    </section>
 </body>
 
 </html>

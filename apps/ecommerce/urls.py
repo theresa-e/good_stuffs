@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^process_login', views.process_login),
     url(r'^logout', views.logout),
     # display account info
-    url(r'^account', views.account_info), 
+    url(r'^account/(?P<id>\d+)', views.account_info), 
     
     # route to admin dashboard
     url(r'^admin/orders', views.orders),

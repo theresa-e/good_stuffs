@@ -8,7 +8,10 @@ def index(request):
 
 def categories(request):
     print('User navigated to the categories page.')
-    return render(request, 'ecommerce/categories.html')
+    context = {
+        'all_products' : Product.objects.all()
+    }
+    return render(request, 'ecommerce/categories.html', context)
 
 def login(request):
     print('User navigated to the login page.')
@@ -86,11 +89,11 @@ def create_acct(request):
     print('User navigated to the login page.')
     return render(request, 'ecommerce/create-acct.html')
 
-def account_info(request):
+def account_info(request, id):
     context = {
-        'user' : User.objects.get(id=request.session['userid'])
+        'user' : User.objects.get(id=id)
     }
-    return render(request, '/acct-info')
+    return render(request, 'ecommerce/acct-info.html', context)
 
 def orders(request):
     print('Admin is viewing all orders.')
@@ -111,7 +114,7 @@ def edit_user(request, id):
     user.user_type = request.POST['account-level']
     user.save()
     return redirect('/admin/users')
-    
+
 def products(request):
     print('Admin is viewing all products.')
     print('@@@@@@ REQUEST.SESSION', request.session)
@@ -158,6 +161,7 @@ def process_edit(request, id):
     product.description = request.POST['description']
     product.price = request.POST['price']
     product.cateogry = request.POST['category']
+    product.inventory = request.POST['inventory']
     product.save()
     return redirect('/admin/products')
 
