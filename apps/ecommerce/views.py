@@ -99,6 +99,19 @@ def orders(request):
         return redirect('/')
     return render(request, 'ecommerce/orders.html')
 
+def users(request):
+    print('Admin is viewing all users')
+    context = {
+        'all_users' : User.objects.all()
+    }
+    return render(request, 'ecommerce/users.html', context)
+
+def edit_user(request, id):
+    user = User.objects.filter(id=id).first()
+    user.user_type = request.POST['account-level']
+    user.save()
+    return redirect('/admin/users')
+    
 def products(request):
     print('Admin is viewing all products.')
     print('@@@@@@ REQUEST.SESSION', request.session)

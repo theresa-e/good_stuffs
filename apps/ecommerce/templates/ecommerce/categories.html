@@ -34,12 +34,12 @@
                     {% if request.session.user_type == 1 %}
                     <span>Welcome back, {{ request.session.first_name }}!</span>
                     <p>Admin Priviledges:
-                    <br/>
+                        <br />
                         <a href="/admin/orders">Orders</a>
                         <span> | </span>
-                        <a href="">Products</a>
+                        <a href="/admin/products">Products</a>
                         <span> | </span>
-                        <a href="">Customer List</a>
+                        <a href="/admin/users">All Accounts</a>
                     </p>
                     {% else %}
                     <span>Welcome, {{ request.session.first_name }}</span>
@@ -50,7 +50,6 @@
             </ul>
         </div>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 categories">

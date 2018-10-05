@@ -37,9 +37,9 @@
                         <br />
                         <a href="/admin/orders">Orders</a>
                         <span> | </span>
-                        <span>Products</span>
+                        <a href="/admin/products">Products</a>
                         <span> | </span>
-                        <a href="/admin/users">All Accounts</a>
+                        <span>All Accounts</span>
                         <span> | </span>
                         <a href="/logout">Logout</a>
                     </p>
@@ -56,42 +56,42 @@
     <!-- main content -->
     <div class="container">
         <div class="d-flex justify-content-between">
-            <h1 class="text-center">All Products</h1>
-            <a href="/admin/add-product">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Add new product
-            </button></a>
+
         </div>
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Inventory</th>
-                    <th>Quantity Sold</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Action</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Joined on</th>
+                    <th>Orders Placed</th>
+                    <th>Account Level</th>
+                    <th>Edit Account Level</th>
                 </tr>
             </thead>
             <tbody>
-                {% for product in all_products %}
+                {% for user in all_users %}
                 <tr>
-                    <th>{{ product.id }}</th>
-                    <th>{{ product.name }}</th>
-                    <th>{{ product.description }}</th>
-                    <th>{{ product.inventory }}</th>
-                    <th>{{ product.quantity_sold }}</th>
-                    <th>${{ product.price }}</th>
-                    <th>{{ product.category }}</th>
+                    <th>{{ user.id }}</th>
+                    <th>{{ user.first_name }} {{user.last_name }}</th>
+                    <th>{{ user.created_at }}</th>
+                    <th>{{ user.orders }}</th>
+                    <th>{{ user.email }}</th>
+                    {% if user.user_type == 1 %}
+                    <th>Admin</th>
+                    {% else %}
+                    <th>Customer</th>
+                    {% endif %}
                     <th>
-                        <a href="/admin/product/edit-product/{{ product.id }}">
-                            <button class="btn btn-primary btn-xs">Edit</button>
-                        </a>
-                        <a href="/admin/product/delete/{{ product.id }}">
-                            <button class="btn btn-primary btn-xs">Delete</button>
-                        </a>
+                        <form action="admin/user/edit-user/{{ user.id }}" method="POST">
+                            {% csrf_token %}
+                            <select name="account-level" id="">
+                                <option value="1">Admin</option>
+                                <option value="0">Customer</option>
+                            </select>
+                            <button class="btn btn-primary">Submit</button>
+                        </form>
                     </th>
                 </tr>
                 {% endfor %}
