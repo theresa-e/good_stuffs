@@ -49,7 +49,8 @@
                         <span> | </span>
                         <a href="/account/{{ request.session.userid }}">My Account</a>
                         <br />
-                        <a href="/categories">View Products</a>
+                        <a href="/">Visit Cart:</a>
+                        <span>(0) items</span>
                         {% endif %}
                         {% endif %}
                 </li>
@@ -64,7 +65,18 @@
             </div>
             <div class="col-8">
                 <h2>All Products</h2>
-                {{ all_products }}
+                {% for product in all_products %}
+                    <div class="product">
+                        <h1>Name: {{  product.name }}</h1>
+                        <h3>Description: {{ product.description }}</h3>
+                        <h3>Price: {{ product.price }}</h3>
+                        <a href="">
+                            <input type="text">
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </a>
+                    </div>
+
+                {% endfor %}
             </div>
         </div>
     </div>
