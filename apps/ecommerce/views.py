@@ -47,6 +47,8 @@ def process_login(request):
         request.session['userid'] = user.id
         if 'user_type' not in request.session:
             request.session['user_type'] = user.user_type
+        if 'customer_cart' not in request.session:
+            request.session['customer_cart'] = {}
         request.session['user_type'] = user.user_type        
         return redirect('/categories')
 def process_new_user(request):
@@ -73,6 +75,8 @@ def process_new_user(request):
         if 'user_type' not in request.session:
             request.session['user_type'] = user.user_type
         request.session['user_type'] = user.user_type
+        if 'customer_cart' not in request.session:
+            request.session['customer_cart'] = {}
         print('REQUEST.SESSION: ', request.session)
         # Create the new user!
         User.objects.create_user(request.POST)
@@ -94,6 +98,24 @@ def account_info(request, id):
         'user' : User.objects.get(id=id)
     }
     return render(request, 'ecommerce/acct-info.html', context)
+
+def add_to_cart(request):
+    cart = request.session.get('cart', {})
+    print('@@@@@@', cart)
+    if request.POST['product_id'] in cart:
+        cart[request.POST['product_id']] = int(cart[request.POST['product_id']]) + int(request.POST['quantity'])
+    else:
+        cart[request.POST['product_id']] = int(request.POST['quantity'])
+    request.session['cart'] = cart
+
+    total_items = 0
+    for i in cart:
+        total_items += cart[i]
+    request.session['total_items'] = total_items
+    return redirect('/categories',)
+
+def visit_cart(request):
+    return render(request, 'ecommerce/cart.html')
 
 def orders(request):
     print('Admin is viewing all orders.')
@@ -117,7 +139,7 @@ def edit_user(request, id):
 
 def products(request):
     print('Admin is viewing all products.')
-    print('@@@@@@ REQUEST.SESSION', request.session)
+    print('------ REQUEST.SESSION', request.session)
     if request.session['user_type'] != 1:
         print('User without admin access tried to visit /products.')
         return redirect('/')

@@ -16,8 +16,13 @@ urlpatterns = [
     url(r'^logout', views.logout),
     # display account info
     url(r'^account/(?P<id>\d+)', views.account_info), 
-    
+    # add an item to user's cart
+    url(r'^account/(?P<id>\d+)', views.account_info), 
     # route to admin dashboard
+    url(r'^add_to_cart', views.add_to_cart), 
+    # view cart
+    url(r'^visit_cart', views.visit_cart), 
+    
     url(r'^admin/orders', views.orders),
     url(r'^admin/products', views.products),
     url(r'^admin/users', views.users),

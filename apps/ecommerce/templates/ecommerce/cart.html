@@ -49,39 +49,16 @@
                         <span> | </span>
                         <a href="/account/{{ request.session.userid }}">My Account</a>
                         <br />
-                        <a href="/visit_cart">Visit Cart:</a>
-                        <span>({{ request.session.total_items }}) items</span>
+                        <a href="/">Visit Cart:</a>
+                        <span>(0) items</span>
                         {% endif %}
                         {% endif %}
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 categories">
-                <h2>All Categories</h2>
-
-            </div>`
-            <div class="col-8">
-                <h2>All Products</h2>
-                {% for product in all_products %}
-                <div class="product">
-                    <h1>Name: {{ product.name }}</h1>
-                    <h3>Description: {{ product.description }}</h3>
-                    <h3>Price: {{ product.price }}</h3>
-                    <form action="/add_to_cart" method="POST">
-                        {% csrf_token %}
-                            <input type="number" name="quantity">
-                            <input type="hidden" name="product_id" value={{ product.id }}>
-                            <button class="btn btn-primary">Add to Cart</button>
-                        </a>
-                    </form>
-                </div>
-
-                {% endfor %}
-            </div>
-        </div>
+    <div class="container">
+        <h1>cart items will be here</h1>
     </div>
 </body>
 
