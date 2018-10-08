@@ -110,7 +110,7 @@ class Product(models.Model):
     category = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    image = models.CharField(max_length=200)
     objects = ErrorManager()
 
     def __repr__(self): 
@@ -131,11 +131,6 @@ class User(models.Model):
 
     def __repr__(self): 
         return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
-
-
-class Images(models.Model):
-    url = models.TextField()
-    product = models.ForeignKey(Product, related_name="product_images")
 
 
 class Address(models.Model):

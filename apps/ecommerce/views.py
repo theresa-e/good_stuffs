@@ -184,6 +184,7 @@ def process_edit(request, id):
     product.price = request.POST['price']
     product.cateogry = request.POST['category']
     product.inventory = request.POST['inventory']
+    product.image = request.POST['img-url']
     product.save()
     return redirect('/admin/products')
 

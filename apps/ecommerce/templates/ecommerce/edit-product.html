@@ -90,6 +90,10 @@
                     <option value="Books">Books</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="image">Add Image (URL): </label>
+                <input type="text" class="form-control" name="img-url" value={{ edit_product.image }}>
+            </div>
             <input type="submit" value="Edit Product" class="btn btn-primary">
         </form>
         {% if messages %}

@@ -58,13 +58,14 @@
         <div class="d-flex justify-content-between">
             <h1 class="text-center">All Products</h1>
             <a href="/admin/add-product">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Add new product
-            </button></a>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add new product
+                </button></a>
         </div>
         <table class="table">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
@@ -73,11 +74,14 @@
                     <th>Price</th>
                     <th>Category</th>
                     <th>Action</th>
+                    <th>Images</th>
                 </tr>
             </thead>
             <tbody>
                 {% for product in all_products %}
                 <tr>
+
+                    <th><img src="{{ product.image }}" width="200"></th>
                     <th>{{ product.id }}</th>
                     <th>{{ product.name }}</th>
                     <th>{{ product.description }}</th>
