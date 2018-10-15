@@ -58,7 +58,35 @@
         </div>
     </nav>
     <div class="container">
-        <table class="table"></table>
+        <h1>Shopping Cart</h1>
+        <table class="table">
+            <thead>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+                <th>Total</th>
+            </thead>
+            {% for k,v in request.session.customer_cart.items %}
+            <tr>
+                <td>{{ k }}</td>
+                <td>{{ v.desc }}</td>
+                <td>{{ v.quantity }}</td>
+                <td>${{ v.price }}</td>
+                <td><button class="btn btn-primary">Remove</button></td>
+                <td>${{ v.total }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+            </tr>
+
+        </table>
+        <p class="text-right">
+            Total Due: ${{ total}}
+            <br />
+            <button class="btn btn-primary">Pay Now</button>
+        </p>
     </div>
 </body>
 

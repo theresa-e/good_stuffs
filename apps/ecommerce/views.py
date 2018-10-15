@@ -10,7 +10,6 @@ def index(request):
 # Render main product page
 def categories(request):
     print('User navigated to the categories page.')
-    print(request.session['total_items'])
     context = {
         'all_products' : Product.objects.all(),
     }
@@ -128,8 +127,16 @@ def add_to_cart(request):
 def visit_cart(request):
     if 'customer_cart' in request.session:
         print('----- Customer has a cart saved in session.')
-
-    return render(request, 'ecommerce/cart.html')
+    # calculate total
+    pending_total = 0
+    for key, val in request.session['customer_cart'].items():
+        print('val',)
+        val['total'] = int(val['quantity']) * int(val['price'])
+        pending_total += int(val['quantity']) * int(val['price'])
+    context = {
+        'total' : pending_total
+    }
+    return render(request, 'ecommerce/cart.html', context)
 
 def orders(request):
     print('Admin is viewing all orders.')
