@@ -57,32 +57,28 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 categories">
-                <h2>All Categories</h2>
-                hi
-            </div>`
-            <div class="col-8">
-                <h2>All Products</h2>
-                {% for product in all_products %}
-                <div class="product">
-                    <img src="{{ product.image }}" width="300" alt="">
-                    <h1>Name: {{ product.name }}</h1>
-                    <h3>Description: {{ product.description }}</h3>
-                    <h3>Price: {{ product.price }}</h3>
-                    <h3>Category: {{ product.category }}</h3>
-                    <form action="/add_to_cart" method="POST">
-                        {% csrf_token %}
-                            <input type="number" name="quantity">
-                            <input type="hidden" name="product_id" value={{ product.id }}>
-                            <button class="btn btn-primary">Add to Cart</button>
-                        </a>
-                    </form>
-                </div>
-
-                {% endfor %}
+    <div class="container">
+        <h1 class="text-center">All Products</h1>
+        <div class="row justify-content-center align-items-center">
+            {% for product in all_products %}
+            <div class="panel panel-primary  col-sm-12 col-md-4 col-lg-3">
+                <img src="{{ product.image }}" class="d-block mx-auto expand">
+                <h2>{{ product.name }}</h2>
+                <h4>Description: {{ product.description }}</h4>
+                <h4>Price: {{ product.price }}</h4>
+                <h4>Category: {{ product.category }}</h4>
+                <form action="/add_to_cart" method="POST">
+                    {% csrf_token %}
+                    <label for="quantity">Quantity: </label>
+                    <input type="number" name="quantity" value="1">
+                    <input type="hidden" name="product_id" value={{ product.id }}>
+                    <a>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </a>
+                    <p><a href="#">View more details</a></p>
+                </form>
             </div>
+            {% endfor %}
         </div>
     </div>
 </body>

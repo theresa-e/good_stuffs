@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=Niramit');
 
 body {
     background-color: #b7dcb2;
-    font-family: "Inconsolata";
+    font-family: "Niramit";
 }
 
 .navbar {
@@ -107,7 +107,6 @@ body {
     background-color: #718b6d;
     border-color: #718b6d;
 }
-
 
 @media only screen and (max-width: 736px) {
     .main__all-images {

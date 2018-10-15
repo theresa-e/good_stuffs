@@ -23,13 +23,18 @@ urlpatterns = [
     # view cart
     url(r'^visit_cart', views.visit_cart), 
     
+    # View all orders, products, and users.
     url(r'^admin/orders', views.orders),
     url(r'^admin/products', views.products),
     url(r'^admin/users', views.users),
+
+    # CRUD functionality for products
     url(r'^admin/add-product', views.add_product),
     url(r'^admin/process-product', views.process_product),
     url(r'^admin/product/delete/(?P<id>\d+)', views.delete_product),
     url(r'^admin/product/edit/(?P<id>\d+)', views.process_edit),
     url(r'^admin/product/edit-product/(?P<id>\d+)', views.edit_product),
+
+    # Edit user info (including changing user_type to admin)
     url(r'^admin/user/edit-user/(?P<id>\d+)', views.edit_user),
 ]

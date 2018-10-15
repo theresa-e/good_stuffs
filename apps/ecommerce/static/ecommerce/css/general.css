@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=Niramit');
 
 body {
     background-color: #fff;
-    font-family: "Inconsolata";
+    font-family: "Niramit";
 
 }
 
@@ -20,10 +20,26 @@ body {
 
 .nav-item {
     color: #fff;
-    font-family: "Inconsolata";
+    font-family: "Niramit";
 }
 
 .categories {
     background-color: #E8EAD2;
     border-radius: 15px;
+}
+
+.panel {
+    border: 1px solid;
+    border-radius: 30px;
+    padding: 15px;
+    height: 40em;
+    margin: 10px;
+}
+
+.panel img {
+    width: 15em;
+}
+
+.container {
+    width: 100%;
 }

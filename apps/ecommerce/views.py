@@ -2,17 +2,21 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from .models import *
 
+# Render main welcome page
 def index(request):
     print('User navigated to main page.')
     return render(request, 'ecommerce/index.html')
 
+# Render main product page
 def categories(request):
     print('User navigated to the categories page.')
+    print(request.session['total_items'])
     context = {
-        'all_products' : Product.objects.all()
+        'all_products' : Product.objects.all(),
     }
     return render(request, 'ecommerce/categories.html', context)
 
+# Render the login page
 def login(request):
     print('User navigated to the login page.')
     return render(request, 'ecommerce/login.html')
@@ -49,8 +53,11 @@ def process_login(request):
             request.session['user_type'] = user.user_type
         if 'customer_cart' not in request.session:
             request.session['customer_cart'] = {}
+        if 'total_items' not in request.session:
+            request.session['total_items'] = 0
         request.session['user_type'] = user.user_type        
         return redirect('/categories')
+
 def process_new_user(request):
     print('-'*30+'> ' 'The registration form was submitted.')
     errors = User.objects.basic_validator(request.POST)
@@ -77,7 +84,9 @@ def process_new_user(request):
         request.session['user_type'] = user.user_type
         if 'customer_cart' not in request.session:
             request.session['customer_cart'] = {}
-        print('REQUEST.SESSION: ', request.session)
+        if 'total_items' not in request.session:
+            request.session['total_items'] = 0
+        print('@@@@@@@@@@@@@@@@@@@@ REQUEST.SESSION: ', request.session)
         # Create the new user!
         User.objects.create_user(request.POST)
 
@@ -100,21 +109,26 @@ def account_info(request, id):
     return render(request, 'ecommerce/acct-info.html', context)
 
 def add_to_cart(request):
-    cart = request.session.get('cart', {})
-    print('@@@@@@', cart)
-    if request.POST['product_id'] in cart:
-        cart[request.POST['product_id']] = int(cart[request.POST['product_id']]) + int(request.POST['quantity'])
+    product = Product.objects.filter(id=request.POST['product_id']).first()
+    print(request.session['customer_cart'])
+    quantity = int(request.POST['quantity'])
+    if product.name not in request.session['customer_cart']:
+        print('product not yet in cart')
+        request.session['customer_cart'][product.name] = {'quantity': int(request.POST['quantity']), 'price': int(product.price), 'desc': product.description}
+        print(request.session['customer_cart'])
+        request.session['total_items'] += quantity
+        request.session.modified = True
     else:
-        cart[request.POST['product_id']] = int(request.POST['quantity'])
-    request.session['cart'] = cart
-
-    total_items = 0
-    for i in cart:
-        total_items += cart[i]
-    request.session['total_items'] = total_items
-    return redirect('/categories',)
+        print('product is in cart')
+        request.session['customer_cart'][product.name]['quantity'] += int(request.POST['quantity'])
+        request.session['total_items'] += quantity
+        request.session.modified = True
+    return redirect('/categories')
 
 def visit_cart(request):
+    if 'customer_cart' in request.session:
+        print('----- Customer has a cart saved in session.')
+
     return render(request, 'ecommerce/cart.html')
 
 def orders(request):
@@ -194,7 +208,6 @@ def customers(request):
         print('User without admin access tried to visit /products.')
         return redirect('/')
     return render(request, 'ecommerce/customers.html')
-
 
 def logout(request):
     request.session.flush()

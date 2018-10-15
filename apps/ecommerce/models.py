@@ -75,7 +75,6 @@ class ErrorManager(models.Manager):
             else:
                 errors['email_exists'] = "The email you entered is already in use. Please enter a different one."
         return errors
-        
 
     def quote_validator(self, requestPOST):
         errors = {}
@@ -131,7 +130,6 @@ class User(models.Model):
 
     def __repr__(self): 
         return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
-
 
 class Address(models.Model):
     street = models.CharField(max_length=30)
