@@ -138,6 +138,10 @@ def visit_cart(request):
     }
     return render(request, 'ecommerce/cart.html', context)
 
+def remove_item_cart(request, name):
+    # go into session and remove
+    # the item from the array! 
+    print(name)
 def orders(request):
     print('Admin is viewing all orders.')
     if request.session['user_type'] != 1:

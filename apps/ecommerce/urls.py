@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^add_to_cart', views.add_to_cart), 
     # view cart
     url(r'^visit_cart', views.visit_cart), 
+    url(r'^remove_item/(?P<name>\d+)', views.remove_item_cart), 
     
     # View all orders, products, and users.
     url(r'^admin/orders', views.orders),
