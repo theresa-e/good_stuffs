@@ -107,6 +107,13 @@ def account_info(request, id):
     }
     return render(request, 'ecommerce/acct-info.html', context)
 
+def edit_acct_info(request, id):
+    context = {
+        'user_info' : User.objects.filter(id=id).first()
+    }
+    print(context)
+    return render(request, 'ecommerce/edit-acct-info.html', context)
+
 def add_to_cart(request):
     product = Product.objects.filter(id=request.POST['product_id']).first()
     print(request.session['customer_cart'])

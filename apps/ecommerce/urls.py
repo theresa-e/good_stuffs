@@ -14,9 +14,9 @@ urlpatterns = [
     # handles form data for login request
     url(r'^process_login', views.process_login),
     url(r'^logout', views.logout),
+    # edit account info
+    url(r'^account/(?P<id>\d+)/edit', views.edit_acct_info), 
     # display account info
-    url(r'^account/(?P<id>\d+)', views.account_info), 
-    # add an item to user's cart
     url(r'^account/(?P<id>\d+)', views.account_info), 
     # route to admin dashboard
     url(r'^add_to_cart', views.add_to_cart), 
