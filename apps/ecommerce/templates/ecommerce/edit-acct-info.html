@@ -61,20 +61,21 @@
     </nav>
 
     <section class="container">
-        <form action="">
+        <form action="process" method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input type="text" name="first_name" class="form-control" value={{ user_info.first_name }}>
             </div>
             <div class="form-group">
                 <label for="last_name">Last Name</label>
-                <input type="text" name="first_name" class="form-control" value={{ user_info.last_name }}>
+                <input type="text" name="last_name" class="form-control" value={{ user_info.last_name }}>
             </div>
             <div class="form-group">
                 <label for="Email">Email</label>
-                <input type="email" name="first_name" class="form-control" value={{ user_info.email }}>
+                <input type="email" name="email" class="form-control" value={{ user_info.email }}>
             </div>
-            <button type="submit" name="first_name" class="btn btn-primary">Submit Changes</button>
+            <button type="submit" class="btn btn-primary">Submit Changes</button>
         </form>
     </section>
 </body>

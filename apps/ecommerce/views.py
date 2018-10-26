@@ -114,6 +114,15 @@ def edit_acct_info(request, id):
     print(context)
     return render(request, 'ecommerce/edit-acct-info.html', context)
 
+def process_edit_acct(request, id):
+    user_to_update = User.objects.filter(id=id).first()
+    print('USER', user_to_update)
+    user_to_update.first_name = request.POST['first_name']
+    user_to_update.last_name = request.POST['last_name']
+    user_to_update.email = request.POST['email']
+    user_to_update.save()
+    return render(request, 'ecommerce/edit-acct-info.html')
+
 def add_to_cart(request):
     product = Product.objects.filter(id=request.POST['product_id']).first()
     print(request.session['customer_cart'])
