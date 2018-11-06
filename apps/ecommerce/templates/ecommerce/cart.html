@@ -57,7 +57,7 @@
                     <a href="/account/{{ request.session.userid }}" class="nav-link">My Account</a>
                 </li>
                 <li class="navbar-item">
-                    <a href="/categories">Categories</a>
+                    <a href="/categories" class="nav-link">Products</a>
                 </li>
                 {% endif %}
                 {% endif %}
@@ -65,32 +65,36 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
-        <h1>Shopping Cart</h1>
-        <table class="table">
-            <thead>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-            </thead>
-            {% for k,v in request.session.customer_cart.items %}
-            <tr>
-                <td>{{ k }}</td>
-                <td>{{ v.desc }}</td>
-                <td>{{ v.quantity }}</td>
-                <td>${{ v.price }}</td>
-                <td>${{ v.total }}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-            </tr>
-        </table>
-        <p class="text-right">
-            Total Due: ${{ total}}
+    <div class="cart-container">
+        <h1 class="title">Shopping Cart</h1>
+        <section class="table-responsive">
+            <table class="cart-table table">
+                <thead>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </thead>
+                {% for k,v in request.session.customer_cart.items %}
+                <tr>
+                    <td>{{ k }}</td>
+                    <td>{{ v.desc }}</td>
+                    <td>{{ v.quantity }}</td>
+                    <td>${{ v.price }}.00</td>
+                    <td>${{ v.total }}.00</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                </tr>
+            </table>
+        </section>
+        <p class="text-right cart-total">
+            Total Due: ${{ total}}.00
             <br />
-            <button class="btn btn-primary">Pay Now</button>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="" data-description="Pay with card"
+                data-amount="500" data-locale="auto">
+            </script>
         </p>
     </div>
 </body>

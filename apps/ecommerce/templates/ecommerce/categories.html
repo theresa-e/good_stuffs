@@ -51,13 +51,16 @@
                 </li>
                 {% else %}
                 <li class="navbar-item">
-                    <a href="/logout" class="nav-link">Logout</a>
-                </li>
-                <li class="navbar-item">
                     <a href="/account/{{ request.session.userid }}" class="nav-link">My Account</a>
                 </li>
                 <li class="navbar-item">
-                    <a href="/categories">Categories</a>
+                    <a href="/categories" class="nav-link">Products</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/visit_cart" class="nav-link">Cart ({{ request.session.total_items}}) </a>
                 </li>
                 {% endif %}
                 {% endif %}

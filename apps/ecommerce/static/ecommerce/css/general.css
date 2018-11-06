@@ -5,6 +5,11 @@ body {
     font-family: "Niramit";
 }
 
+.title {
+    font-family: "Georgia";
+    text-align: center;
+}
+
 /* ---------- NAVBAR ---------- */
 .navbar {
     height: 10vh;
@@ -119,7 +124,6 @@ body {
 
 
 /* ---------- PRODUCT GRID ---------- */
-
 .product-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -169,6 +173,31 @@ body {
     background-color: #b7d4b7;
     border-radius: 3px;
     margin: 3px;
+}
+
+/* ---------- CART PAGE ---------- */
+.cart-container {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.cart-table {
+    width: 100%;
+}
+
+.cart-total {
+    color: rgb(55, 116, 55);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* ---------- ACCOUNT INFO ---------- */
+.acct-info {
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 /* ---------- RESPONSIVE ---------- */
