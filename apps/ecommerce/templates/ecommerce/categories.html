@@ -23,60 +23,68 @@
         </button>
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <!-- Check if user is logged in -->
+                {% if not request.session.userid %}
                 <li class="nav-item">
-                    <!-- Check if user is logged in -->
-                    {% if not request.session.userid %}
-                    <a href="/login">Login</a>
-                    <span> | </span>
-                    <a href="/create-acct">Create Account</a>
-                    {% else %}
-                    <!-- Check if user is admin or customer -->
-                    {% if request.session.user_type == 1 %}
-                    <span>Welcome back, {{ request.session.first_name }}!</span>
-                    <p>Admin Priviledges:
-                        <br />
-                        <a href="/admin/orders">Orders</a>
-                        <span> | </span>
-                        <a href="/admin/products">Products</a>
-                        <span> | </span>
-                        <a href="/admin/users">All Accounts</a>
-                        <span> | </span>
-                        <a href="/logout">Logout</a>
-                    </p>
-                    {% else %}
-                    <span>Welcome, {{ request.session.first_name }}!</span>
-                    <p><a href="/logout">Logout</a>
-                        <span> | </span>
-                        <a href="/account/{{ request.session.userid }}">My Account</a>
-                        <br />
-                        <a href="/visit_cart">Visit Cart:</a>
-                        <span>({{ request.session.total_items }}) items</span>
-                        {% endif %}
-                        {% endif %}
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/create-acct" class="nav-link">Create Account</a>
+                </li>
+                {% else %}
+                <!-- Check if user is admin or customer -->
+                {% if request.session.user_type == 1 %}
+                <li class="nav-item">
+                    <P>Admin Portal: </P>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/orders" class="nav-link">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/products" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link">All Accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+                {% else %}
+                <li class="navbar-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/account/{{ request.session.userid }}" class="nav-link">My Account</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/categories">Categories</a>
+                </li>
+                {% endif %}
+                {% endif %}
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="temp">
         <h1 class="text-center">All Products</h1>
-        <div class="row justify-content-center align-items-center">
+        <div class="product-grid">
             {% for product in all_products %}
-            <div class="panel panel-primary  col-sm-12 col-md-4 col-lg-3">
+            <div class="product-box">
                 <img src="{{ product.image }}" class="d-block mx-auto expand">
-                <h2>{{ product.name }}</h2>
-                <h4>Description: {{ product.description }}</h4>
-                <h4>Price: {{ product.price }}</h4>
-                <h4>Category: {{ product.category }}</h4>
-                <form action="/add_to_cart" method="POST">
-                    {% csrf_token %}
-                    <label for="quantity">Quantity: </label>
-                    <input type="number" name="quantity" value="1">
-                    <input type="hidden" name="product_id" value={{ product.id }}>
-                    <a>
-                        <button class="btn btn-primary">Add to Cart</button>
-                    </a>
-                    <p><a href="#">View more details</a></p>
-                </form>
+                <h1 class="product__name">{{ product.name }}</h2>
+                    <div class="product__details">
+                        <span class="emphasis">Price:</span><span> ${{ product.price }}</span><br />
+                        <span class="emphasis">Category: </span><span>{{ product.category }}</span>
+                    </div>
+                    <form action="/add_to_cart" method="POST">
+                        {% csrf_token %}
+                        <label for="quantity">Quantity: </label>
+                        <input type="number" name="quantity" value="1">
+                        <input type="hidden" name="product_id" value={{ product.id }}>
+                        <a>
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </a>
+                    </form>
             </div>
             {% endfor %}
         </div>

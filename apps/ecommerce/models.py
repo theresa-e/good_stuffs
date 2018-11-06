@@ -96,7 +96,7 @@ class ErrorManager(models.Manager):
         if len(requestPOST['price']) < 1:
             errors['price'] = "Product must have a price."
         if not len(errors):
-            new_product = Product.objects.create(name = requestPOST['name'], description = requestPOST['description'], price = requestPOST['price'], category = requestPOST['category'], inventory = requestPOST['inventory'])
+            new_product = Product.objects.create(name = requestPOST['name'], description = requestPOST['description'], price = requestPOST['price'], category = requestPOST['category'], inventory = requestPOST['inventory'], image = requestPOST['image'])
             new_product.save()
         return errors
 

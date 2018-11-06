@@ -22,31 +22,44 @@
         </button>
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <!-- Check if user is logged in -->
+                {% if not request.session.userid %}
                 <li class="nav-item">
-                    <!-- Check if user is logged in -->
-                    {% if not request.session.userid %}
-                    <a href="/login">Login</a>
-                    <span> | </span>
-                    <a href="/create-acct">Create Account</a>
-                    {% else %}
-                    <!-- Check if user is admin or customer -->
-                    {% if request.session.user_type == 1 %}
-                    <span>Welcome back, {{ request.session.first_name }}!</span>
-                    <p>Admin Priviledges:
-                        <br />
-                        <a href="/admin/Orders">Orders</a>
-                        <span> | </span>
-                        <a href="/admin/products">Products</a>
-                        <span> | </span>
-                        <a href="/admin/users">All Accounts</a>
-                        <span> | </span>
-                        <a href="/logout">Logout</a>
-                    </p>
-                    {% else %}
-                    <span>Welcome, {{ request.session.first_name }}</span>
-                    <p><a href="/categories"></a></p>
-                    {% endif %}
-                    {% endif %}
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/create-acct" class="nav-link">Create Account</a>
+                </li>
+                {% else %}
+                <!-- Check if user is admin or customer -->
+                {% if request.session.user_type == 1 %}
+                <li class="nav-item">
+                    <P>Admin Portal: </P>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/orders" class="nav-link">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/products" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link">All Accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+                {% else %}
+                <li class="navbar-item">
+                    <a href="/logout" class="nav-link">Logout</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/account/{{ request.session.userid }}" class="nav-link">My Account</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/categories">Categories</a>
+                </li>
+                {% endif %}
+                {% endif %}
                 </li>
             </ul>
         </div>
@@ -59,33 +72,35 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" placeholder="Display name of product"
-                    name="name">
+                <input type="text" class="form-control" placeholder="Display name of product" name="name">
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" placeholder="Product description"
-                    name="description">
+                <input type="text" class="form-control" placeholder="Product description" name="description">
             </div>
             <div class="form-group">
                 <label for="Price">Price</label>
                 <input type="text" class="form-control" placeholder="Ex. $19.99" name="price">
             </div>
             <div class="form-group">
-                <label for="Inventory">Inventory</label>
-                <input type="number" class="form-control" placeholder="Ex. $19.99" name="inventory">
+                <label for="Inventory">Starting Inventory</label>
+                <input type="number" class="form-control" placeholder="Ex. 1000" name="inventory">
+            </div>
+            <div class="form-group">
+                <label for="Image">Image URL</label>
+                <input type="text" class="form-control" name="image">
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
                 <select class="custom-select" name="category">
                     <option value="">Select from options:</option>
-                    <option value="Clothing">Clothing</option>
+                    <option value="Soil & Fertilizer">Soil & Fertilizer</option>
                     <option value="Accessories">Accessories</option>
-                    <option value="Food & Drink">Food & Drink</option>
-                    <option value="Home & Kitchen">Home & Kitchen</option>
-                    <option value="Pet Supplies">Pet Supplies</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Books">Books</option>
+                    <option value="Pest Control">Pest Control</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Watering">Watering</option>
+                    <option value="Pots & Planters">Pots & Planters</option>
+                    <option value="Tools">Tools</option>
                 </select>
             </div>
             <input type="submit" value="Add Product" class="btn btn-primary">
