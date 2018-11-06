@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GoodStuffs | Categories</title>
+    <title>GoodStuffs | Cart</title>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -92,9 +92,7 @@
         <p class="text-right cart-total">
             Total Due: ${{ total}}.00
             <br />
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="" data-description="Pay with card"
-                data-amount="500" data-locale="auto">
-            </script>
+            <a href="/checkout" class="btn btn-primary">Checkout</a>
         </p>
     </div>
 </body>

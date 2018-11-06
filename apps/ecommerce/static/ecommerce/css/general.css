@@ -200,6 +200,17 @@ body {
     margin: 5px;
 }
 
+/* ---------- CHECKOUT PAGE ---------- */
+.checkout-container {
+    width: 80%;
+    margin: 10px auto 0 auto;
+    
+}
+
+.cart-table {
+    margin-top: 20px;
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media only screen and (max-width: 736px) {
     .main__all-images {

@@ -1,6 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from .models import *
+# Below imports are needed for Stripe
+from django.views.generic.base import TemplateView
+from django.conf import settings
+from django.views.generic.base import TemplateView
 
 # Render main welcome page
 def index(request):
@@ -239,3 +243,30 @@ def customers(request):
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+def checkout(request):
+    context = {
+        'user' : User.objects.filter(id=request.session['userid']).first()
+    }
+    print(request.session['customer_cart'])
+    return render(request, 'ecommerce/checkout.html', context)
+
+# Stripe
+class HomePageView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.pk_test_yNssEHyDqzDPKtNIx4OkpT6Y
+        return context
+
+
+def charge(request): # new
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=500,
+            currency='usd',
+            description='A Django charge',
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'acct-info.html')
