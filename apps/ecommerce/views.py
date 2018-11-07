@@ -6,12 +6,12 @@ from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.views.generic.base import TemplateView
 
-# Render main welcome page
+# ---------- Render main welcome page ----------
 def index(request):
     print('User navigated to main page.')
     return render(request, 'ecommerce/index.html')
 
-# Render main product page
+# ---------- Render main product page ----------
 def categories(request):
     print('User navigated to the categories page.')
     context = {
@@ -19,11 +19,12 @@ def categories(request):
     }
     return render(request, 'ecommerce/categories.html', context)
 
-# Render the login page
+# ---------- Render the login page ----------
 def login(request):
     print('User navigated to the login page.')
     return render(request, 'ecommerce/login.html')
 
+# ---------- Handle login request (POST) ----------
 def process_login(request):
     print('User tried to login.')
     # Save login email to form input
@@ -61,6 +62,7 @@ def process_login(request):
         request.session['user_type'] = user.user_type        
         return redirect('/categories')
 
+# ---------- Process new user registration ----------
 def process_new_user(request):
     print('-'*30+'> ' 'The registration form was submitted.')
     errors = User.objects.basic_validator(request.POST)
@@ -101,16 +103,19 @@ def process_new_user(request):
         print('-'*30+'> ', 'Current users:\n', User.objects.all())
         return redirect('/')
 
+# ---------- Render page for new account creation ----------
 def create_acct(request):
     print('User navigated to the login page.')
     return render(request, 'ecommerce/create-acct.html')
 
+# ---------- Render page for user's account information ----------
 def account_info(request, id):
     context = {
         'user' : User.objects.get(id=id)
     }
     return render(request, 'ecommerce/acct-info.html', context)
 
+# ---------- Render page for user to edit account info ----------
 def edit_acct_info(request, id):
     context = {
         'user_info' : User.objects.filter(id=id).first()
@@ -118,6 +123,7 @@ def edit_acct_info(request, id):
     print(context)
     return render(request, 'ecommerce/edit-acct-info.html', context)
 
+# ---------- Handle user request to edit account info ----------
 def process_edit_acct(request, id):
     user_to_update = User.objects.filter(id=id).first()
     print('USER', user_to_update)
@@ -127,6 +133,7 @@ def process_edit_acct(request, id):
     user_to_update.save()
     return render(request, 'ecommerce/edit-acct-info.html')
 
+# ---------- Add item to cart. Stored in session until order is placed. ----------
 def add_to_cart(request):
     product = Product.objects.filter(id=request.POST['product_id']).first()
     print(request.session['customer_cart'])
@@ -144,6 +151,7 @@ def add_to_cart(request):
         request.session.modified = True
     return redirect('/categories')
 
+# ---------- Render page for all items in cart ----------
 def visit_cart(request):
     if 'customer_cart' in request.session:
         print('----- Customer has a cart saved in session.')
@@ -158,10 +166,21 @@ def visit_cart(request):
     }
     return render(request, 'ecommerce/cart.html', context)
 
+# ---------- Remote item from cart ----------
 def remove_item_cart(request, name):
     # go into session and remove
     # the item from the array! 
     print(name)
+
+# ---------- Render page for checkout ----------
+def checkout(request):
+    context = {
+        'user' : User.objects.filter(id=request.session['userid']).first()
+    }
+    print(request.session['customer_cart'])
+    return render(request, 'ecommerce/checkout.html', context)
+
+# ---------- [ADMIN LEVEL] View all orders placed ----------
 def orders(request):
     print('Admin is viewing all orders.')
     if request.session['user_type'] != 1:
@@ -169,6 +188,7 @@ def orders(request):
         return redirect('/')
     return render(request, 'ecommerce/orders.html')
 
+# ---------- [ADMIN LEVEL] View all users ----------
 def users(request):
     print('Admin is viewing all users')
     context = {
@@ -176,12 +196,14 @@ def users(request):
     }
     return render(request, 'ecommerce/users.html', context)
 
+# ---------- [ADMIN LEVEL] Edit user account status ----------
 def edit_user(request, id):
     user = User.objects.filter(id=id).first()
     user.user_type = request.POST['account-level']
     user.save()
     return redirect('/admin/users')
 
+# ---------- [ADMIN LEVEL] View all products ----------
 def products(request):
     print('Admin is viewing all products.')
     print('------ REQUEST.SESSION', request.session)
@@ -193,6 +215,7 @@ def products(request):
     }
     return render(request, 'ecommerce/products.html', context)
 
+# ---------- [ADMIN LEVEL] Add new product record ----------
 def add_product(request):
     print('Admin is adding a product.')
     if request.session['user_type'] != 1:
@@ -201,6 +224,7 @@ def add_product(request):
     else:
         return render(request, 'ecommerce/add-product.html')
 
+# ---------- [ADMIN LEVEL] Handle new product creation ----------
 def process_product(request):
     print('Admin is creating a new product.')
     errors = Product.objects.product_validator(request.POST)
@@ -211,17 +235,20 @@ def process_product(request):
     else:
         return redirect('/admin/products')
 
+# ---------- [ADMIN LEVEL] Delete product by ID ----------
 def delete_product(request, id):
     product = Product.objects.filter(id=id).first()
     product.delete()
     return redirect('/admin/products')
 
+# ---------- [ADMIN LEVEL] Edit product info ----------
 def edit_product(request, id):
     context = {
         'edit_product' : Product.objects.filter(id=id).first()
     }
     return render(request, 'ecommerce/edit-product.html', context)
 
+# ---------- [ADMIN LEVEL] Handles product edit. ----------
 def process_edit(request, id):
     product = Product.objects.filter(id=id).first()
     product.name = request.POST['name']
@@ -233,23 +260,10 @@ def process_edit(request, id):
     product.save()
     return redirect('/admin/products')
 
-def customers(request):
-    print('Admin is viewing all customers.')
-    if not request.session['user_type'] == 1:
-        print('User without admin access tried to visit /products.')
-        return redirect('/')
-    return render(request, 'ecommerce/customers.html')
-
 def logout(request):
     request.session.flush()
     return redirect('/')
 
-def checkout(request):
-    context = {
-        'user' : User.objects.filter(id=request.session['userid']).first()
-    }
-    print(request.session['customer_cart'])
-    return render(request, 'ecommerce/checkout.html', context)
 
 # Stripe
 class HomePageView(TemplateView):

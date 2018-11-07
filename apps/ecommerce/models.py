@@ -70,8 +70,8 @@ class ErrorManager(models.Manager):
             errors['email_format'] = "Please enter a valid email."
         if len(email_check) > 0:
             if requestPOST['email'] == user.email:
-                pass 
                 # User didn't change email
+                pass 
             else:
                 errors['email_exists'] = "The email you entered is already in use. Please enter a different one."
         return errors
@@ -132,6 +132,7 @@ class User(models.Model):
         return "<User object: {} {} {} {}>".format(self.first_name, self.last_name, self.email, self.user_type)
 
 class Address(models.Model):
+    name = models.CharField(max_length=50)
     street = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=2)
@@ -144,7 +145,6 @@ class Order(models.Model):
     buyer = models.ForeignKey(User, related_name="ordered_by")
     items = models.ManyToManyField(Product, related_name="products_ordered") # list of products ordered
     ship_to = models.ForeignKey(Address, related_name="shipto_address")
-    bill_to = models.ForeignKey(Address, related_name="billto_address")
-    status = models.CharField(max_length=10) # will change when order ships and is delivered.
+    status = models.CharField(max_length=10, default="Pending") # will change when order ships and is delivered.
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

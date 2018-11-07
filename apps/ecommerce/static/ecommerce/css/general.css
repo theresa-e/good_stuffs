@@ -28,6 +28,34 @@ body {
     font-family: "Inconsolata";
 }
 
+/* ---------- BUTTONS ---------- */
+.btn {
+    margin: 20px;
+    padding: 10px;
+}
+.btn-primary {
+    background-color: #eee37c;
+    border-color: #eee37c;
+    color: #000000;
+}
+
+.btn-primary:hover {
+    background-color: #718b6d;
+    border-color: #718b6d;
+}
+
+.btn-secondary {
+    background-color: #85a8c6;
+    border-color: #85a8c6;
+    color: #000;
+}
+
+.btn-secondary:hover {
+    background-color: #80909f;
+    border-color: #85a8c6;
+    color: #fff;
+}
+
 /* ---------- WELCOME PAGE ---------- */
 .main__title {
     font-family: "Georgia";
@@ -73,19 +101,6 @@ body {
     height: 100%;
     position: absolute;
     z-index: -1;
-}
-
-.btn-primary {
-    background-color: #eee37c;
-    border-color: #eee37c;
-    color: #000000;
-    margin: 20px;
-    padding: 20px;
-}
-
-.btn-primary:hover {
-    background-color: #718b6d;
-    border-color: #718b6d;
 }
 
 .icon {
@@ -190,6 +205,7 @@ body {
     color: rgb(55, 116, 55);
     font-weight: bold;
     font-size: 1.2rem;
+    margin-right: 10px;
 }
 
 /* ---------- ACCOUNT INFO ---------- */
@@ -208,7 +224,12 @@ body {
 }
 
 .cart-table {
-    margin-top: 20px;
+    margin-top: 40px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -221,4 +242,5 @@ body {
         margin: 10px 0;
         padding: 10px;
     }
+
 }
